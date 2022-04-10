@@ -22,7 +22,7 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 #include "src/engine/filehandler.hpp"
 
 unsigned int WIDTH = 800, HEIGHT = 600;
-const char *TITLE = "osu! but scam";
+const char *TITLE = "Template";
 
 bool output_event = false;
 SDL_Event event;
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 
     // ------ testing ------ //
 
-    Texture *tex = ImageHandler::load_image(Window::instance_renderer, "skins/unknown.png");
+    Texture *tex = ImageHandler::load_image(Window::instance_renderer, "assets/unknown.png");
     Rect pos;
     pos.x = 0;
     pos.y = 0;
@@ -143,22 +143,25 @@ int main(int argc, char *argv[])
         // std::cout << delta_time << "ms" << std::endl;
         SDL_RenderClear(Window::instance_renderer);
 
-        if(Keyboard::is_key_pressed(SDLK_a))
+        if (Keyboard::is_key_pressed(SDLK_a))
             pos.x -= 5;
-        if(Keyboard::is_key_pressed(SDLK_d))
+        if (Keyboard::is_key_pressed(SDLK_d))
             pos.x += 5;
-        if(Keyboard::is_key_pressed(SDLK_w))
+        if (Keyboard::is_key_pressed(SDLK_w))
             pos.y -= 5;
-        if(Keyboard::is_key_pressed(SDLK_s))
+        if (Keyboard::is_key_pressed(SDLK_s))
             pos.y += 5;
-        
+
         // rescale testing
-        if(Keyboard::is_key_pressed(SDLK_LSHIFT) && Keyboard::is_key_pressed(SDLK_SPACE)){
-            pos.w-=5;
-            pos.h-=5;
-        }else if(Keyboard::is_key_pressed(SDLK_SPACE)){
-            pos.w+=5;
-            pos.h+=5;
+        if (Keyboard::is_key_pressed(SDLK_LSHIFT) && Keyboard::is_key_pressed(SDLK_SPACE))
+        {
+            pos.w -= 5;
+            pos.h -= 5;
+        }
+        else if (Keyboard::is_key_pressed(SDLK_SPACE))
+        {
+            pos.w += 5;
+            pos.h += 5;
         }
         // SDL_Log("%dms", Clock::delta_time);
 
