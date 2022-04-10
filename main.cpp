@@ -147,7 +147,19 @@ int main(int argc, char *argv[])
             pos.x -= 5;
         if(Keyboard::is_key_pressed(SDLK_d))
             pos.x += 5;
-
+        if(Keyboard::is_key_pressed(SDLK_w))
+            pos.y -= 5;
+        if(Keyboard::is_key_pressed(SDLK_s))
+            pos.y += 5;
+        
+        // rescale testing
+        if(Keyboard::is_key_pressed(SDLK_LSHIFT) && Keyboard::is_key_pressed(SDLK_SPACE)){
+            pos.w-=5;
+            pos.h-=5;
+        }else if(Keyboard::is_key_pressed(SDLK_SPACE)){
+            pos.w+=5;
+            pos.h+=5;
+        }
         // SDL_Log("%dms", Clock::delta_time);
 
         Window::fill(&white);

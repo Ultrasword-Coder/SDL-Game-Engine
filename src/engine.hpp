@@ -71,8 +71,49 @@ namespace Engine
 // color typedef
 typedef SDL_Color Color;
 
-void output_color_string(Color *color)
-{
-    // output color as a string of r, g, b, a
-    std::cout << "Color | Red: " << +color->r << " | Green: " << +color->g << " | Blue: " << +color->b << " | Alpha: " << +color->a;
+namespace e_Color{
+
+    void output_color_string(Color *color)
+    {
+        // output color as a string of r, g, b, a
+        std::cout << "Color | Red: " << +color->r << " | Green: " << +color->g << " | Blue: " << +color->b << " | Alpha: " << +color->a;
+    }
+
+    Color rgba_color(uchar r, uchar g, uchar b, uchar a){
+        // gen color object from rgba values
+        Color col = {r, g, b, a};
+        return col;
+    }
+
+    Color rgb_color(uchar r, uchar g, uchar b){
+        // gen color from rgb values
+        Color col = {r, g, b, 255};
+        return col;
+    }
+
+    Color hex_color(unsigned int num){
+        // generate color object from hex number 32 bit
+        Color col;
+        uchar val = num >> 24;
+        col.r = val;
+        num -= val<<24;
+        val = num >> 16;
+        col.g = val;
+        num -= val << 16;
+        val = num >> 8;
+        col.b = val;
+        num -= val << 8;
+        col.a = num;
+
+        return col;
+    }
+
+    void blend_color2(Color *source, Color *blender){
+        // blend 2 colors together
+        source->a = (source->a + blender->a)/2;
+        source->r = (source->r + blender->r)/2;
+        source->g = (source->g + blender->g)/2;
+        source->b = (source->b + blender->b)/2;
+    }
+
 }
