@@ -2,6 +2,11 @@
   "git.ignoreLimitWarning": true,
   "files.associations": {
     "iostream": "cpp",
-    "unordered_map": "cpp"
-  }
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "cassert": "cpp"
+  },
+  "editor.renderWhitespace": "trailing",
+  "editor.cursorStyle": "line",
+  "editor.minimap.renderCharacters": true
 }

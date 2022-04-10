@@ -5,7 +5,6 @@
 #include <cassert>
 
 #include "engine.hpp"
-#include "texture.hpp"
 #include "utils.hpp"
 
 /*
@@ -79,25 +78,6 @@ namespace Window
             SDL_DestroyRenderer(instance_renderer);
         if (instance)
             SDL_DestroyWindow(instance);
-    }
-
-    void fill(Color *color)
-    {
-        // fill the screen with a color
-        SDL_SetRenderDrawColor(instance_renderer, color->r, color->g, color->b, color->a);
-        SDL_RenderFillRect(instance_renderer, NULL);
-    }
-
-    void blit(SDL_Texture *tex, SDL_Rect *src, SDL_Rect *dst)
-    {
-        //  render the texture of src rect to dest rect
-        SDL_RenderCopy(instance_renderer, tex, src, dst);
-    }
-
-    void blit(Texture *tex, SDL_Rect *dst)
-    {
-        // render the tex given the original src and the dest rect
-        SDL_RenderCopy(instance_renderer, tex->get_texture(), tex->get_rect(), dst);
     }
 
 }

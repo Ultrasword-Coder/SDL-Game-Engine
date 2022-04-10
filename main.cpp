@@ -18,8 +18,8 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 #include "src/engine/window.hpp"
 #include "src/engine/clock.hpp"
 #include "src/engine/keyboard.hpp"
-#include "src/engine/texture.hpp"
 #include "src/engine/filehandler.hpp"
+#include "src/engine/draw.hpp"
 
 unsigned int WIDTH = 800, HEIGHT = 600;
 const char *TITLE = "Template";
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 
     // ------ testing ------ //
 
-    Texture *tex = ImageHandler::load_image(Window::instance_renderer, "assets/unknown.png");
+    Graphics::Texture *tex = ImageHandler::load_image(Window::instance_renderer, "assets/unknown.png");
     Rect pos;
     pos.x = 0;
     pos.y = 0;
@@ -132,6 +132,10 @@ int main(int argc, char *argv[])
     white.g = 255;
     white.b = 255;
     white.a = 255;
+
+    Graphics::Texture *sheet = ImageHandler::load_image(Window::instance_renderer, "assets/tilemap.png");
+    Graphics::SpriteSheet spritesheet(sheet, 10 * 10, 16, 16, 0, 0);
+    spritesheet.create();
 
     // --------------------- //
     SDL_Event event;
@@ -165,8 +169,13 @@ int main(int argc, char *argv[])
         }
         // SDL_Log("%dms", Clock::delta_time);
 
-        Window::fill(&white);
-        Window::blit(tex, &pos);
+        Draw::fill(&white);
+
+        // test render
+        for (int i = 0; i < (int)spritesheet.get_count(); i++)
+            Draw::render_sprite_object(&spritesheet, &spritesheet.sprite_at(i)->area, &spritesheet.sprite_at(i)->area);
+
+        Draw::blit(tex, &pos);
 
         SDL_RenderPresent(Window::instance_renderer);
     }
