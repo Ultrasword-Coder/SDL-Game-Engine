@@ -11,8 +11,11 @@
             ],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
-            "cppStandard": "c++98",
-            "intelliSenseMode": "macos-clang-x86"
+            "cppStandard": "c++11",
+            "intelliSenseMode": "macos-gcc-x64",
+            "compilerArgs": [
+                "-I "
+            ]
         },
         {
             "name": "win",

@@ -1,4 +1,4 @@
 *.exe
-*.app\
+*.app
 
 .vscode

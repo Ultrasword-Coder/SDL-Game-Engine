@@ -1,14 +1,14 @@
 #pragma once
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 #if defined _WIN64
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined _WIN32
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined __APPLE__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #elif defined __MACH__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #else
 printerror("OS not supported? You using linux? yucky... no offense of course");
 #endif
@@ -30,9 +30,9 @@ private:
     SDL_Texture *texture;
 
 public:
-    bool initialized = false;
+    bool initialized;
 
-    Texture() : w(0), h(0) {}
+    Texture() : w(0), h(0), initialized(false){}
 
     Texture(SDL_Texture *tex, const char *path) : file(path), texture(tex)
     {

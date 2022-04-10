@@ -1,5 +1,5 @@
 #pragma once
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 #include <iostream>
 
@@ -12,8 +12,8 @@ namespace Utils
 
     void handle_error()
     {
-        SDL_GetErrorMsg(buffer, 500);
-        SDL_Log(buffer);
+        SDL_GetErrorMsg(Utils::buffer, 500);
+        SDL_Log("%s", Utils::buffer);
     }
 
 }

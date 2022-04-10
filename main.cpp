@@ -1,15 +1,15 @@
 #include <iostream>
 
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 #if defined _WIN64
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined _WIN32
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined __APPLE__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #elif defined __MACH__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #else
 printerror("OS not supported? You using linux? yucky... no offense of course");
 #endif
@@ -121,7 +121,11 @@ int main(int argc, char *argv[])
     // ------ testing ------ //
 
     Texture *tex = ImageHandler::load_image(Window::instance_renderer, "skins/unknown.png");
-    Rect *pos = tex->get_rect();
+    Rect pos;
+    pos.x = 0;
+    pos.y = 0;
+    pos.w = 100;
+    pos.h = 100;
 
     Color white;
     white.r = 255;
@@ -139,10 +143,15 @@ int main(int argc, char *argv[])
         // std::cout << delta_time << "ms" << std::endl;
         SDL_RenderClear(Window::instance_renderer);
 
+        if(Keyboard::is_key_pressed(SDLK_a))
+            pos.x -= 5;
+        if(Keyboard::is_key_pressed(SDLK_d))
+            pos.x += 5;
+
         // SDL_Log("%dms", Clock::delta_time);
 
         Window::fill(&white);
-        Window::blit(tex, pos);
+        Window::blit(tex, &pos);
 
         SDL_RenderPresent(Window::instance_renderer);
     }

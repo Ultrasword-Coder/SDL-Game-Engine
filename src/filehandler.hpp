@@ -1,16 +1,16 @@
 #pragma once
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 #if defined _WIN64
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined _WIN32
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #elif defined __APPLE__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #elif defined __MACH__
-#include "SDL2/SDL_Image.h"
+#include <SDL2_image/SDL_image.h>
 #else
-printerror("OS not supported? You using linux?");
+printerror("OS not supported? You using linux? yucky... no offense of course");
 #endif
 
 #include <unordered_map>
