@@ -14,12 +14,12 @@
 printerror("OS not supported? You using linux? yucky... no offense of course");
 #endif
 
-#include "src/engine.hpp"
-#include "src/window.hpp"
-#include "src/clock.hpp"
-#include "src/keyboard.hpp"
-#include "src/texture.hpp"
-#include "src/filehandler.hpp"
+#include "src/engine/engine.hpp"
+#include "src/engine/window.hpp"
+#include "src/engine/clock.hpp"
+#include "src/engine/keyboard.hpp"
+#include "src/engine/texture.hpp"
+#include "src/engine/filehandler.hpp"
 
 unsigned int WIDTH = 800, HEIGHT = 600;
 const char *TITLE = "osu! but scam";
