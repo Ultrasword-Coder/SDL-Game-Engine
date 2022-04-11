@@ -19,13 +19,21 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 
 */
 
-
-
 typedef SDL_Rect Rect;
 
-namespace e_Physics{
+namespace e_Physics
+{
+    // --------------- Physics Body Struct ------------- //
 
-    
+    struct PhysicsBody
+    {
+        double xpos;
+        double ypos;
+        double xmotion;
+        double ymotion;
+        Rect body;
+    };
 
+    // ------------- methods for physics --------------- //
 
 }

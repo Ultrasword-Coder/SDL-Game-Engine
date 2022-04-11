@@ -20,6 +20,7 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 #include "src/engine/keyboard.hpp"
 #include "src/engine/filehandler.hpp"
 #include "src/engine/draw.hpp"
+#include "src/engine/physics.hpp"
 
 unsigned int WIDTH = 800, HEIGHT = 600;
 const char *TITLE = "Template";
