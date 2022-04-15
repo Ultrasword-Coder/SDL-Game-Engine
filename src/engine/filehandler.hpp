@@ -15,6 +15,7 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 
 #include <unordered_map>
 #include <vector>
+#include <string>
 
 #include "window.hpp"
 #include "utils.hpp"
@@ -47,7 +48,7 @@ namespace Graphics
     class Texture
     {
     private:
-        const char *file;
+        std::string file;
         Rect rect;
 
         SDL_Texture *texture;
@@ -57,7 +58,7 @@ namespace Graphics
 
         Texture() : initialized(false) {}
 
-        Texture(SDL_Texture *tex, const char *path) : file(path), texture(tex)
+        Texture(SDL_Texture *tex, std::string path) : file(path), texture(tex)
         {
             // now we get the information
             set_params(tex, path);
@@ -85,7 +86,7 @@ namespace Graphics
             return this->rect.h;
         }
 
-        const char *get_file()
+        std::string get_file()
         {
             return this->file;
         }
@@ -106,7 +107,7 @@ namespace Graphics
             std::cout << "FileName: " << this->file << "| Width: " << this->rect.w << " | Height: " << this->rect.h << std::endl;
         }
 
-        void set_params(SDL_Texture *texture, const char *path)
+        void set_params(SDL_Texture *texture, std::string path)
         {
             initialized = true;
             // get info
@@ -114,7 +115,8 @@ namespace Graphics
             this->texture = texture;
             rect.x = 0;
             rect.y = 0;
-            // SDL_Log("%d %d", w, h);
+            // SDL_Log("%d %d", this->rect.w, this->rect.h);
+            this->file = path;
         }
 
         // TODO - add clipping textures etc etc
@@ -246,7 +248,7 @@ namespace Graphics
 namespace ImageHandler
 {
     // --------- image cache ------------ //
-    std::unordered_map<const char *, Graphics::Texture> texture_cache;
+    std::unordered_map<std::string, Graphics::Texture> texture_cache;
 
     // memory cleaning
     void clean()
@@ -254,12 +256,12 @@ namespace ImageHandler
         for (auto &obj : texture_cache)
         {
             obj.second.clean();
-            SDL_Log("CLEAN: Cleaned %s from RAM!", obj.first);
+            SDL_Log("CLEAN: Cleaned %s from RAM!", obj.first.c_str());
         }
     }
 
     // handles opening images - png and jpg
-    Graphics::Texture *load_image(SDL_Renderer *renderer, const char *path)
+    Graphics::Texture *load_image(SDL_Renderer *renderer, std::string path)
     {
         // check if already loaded
         if (texture_cache[path].initialized)
@@ -271,11 +273,11 @@ namespace ImageHandler
         Graphics::Texture tex;
         SDL_Texture *loaded = NULL;
         // get image
-        loaded = IMG_LoadTexture(renderer, path);
+        loaded = IMG_LoadTexture(renderer, path.c_str());
         // error checking
         if (!loaded)
         {
-            SDL_Log("ERROR: `filehandler.hpp` | Failed to load file at `%s`\n", path);
+            SDL_Log("ERROR: `filehandler.hpp` | Failed to load file at `%s`\n", path.c_str());
             Window::running = false;
             Utils::handle_error();
             return NULL;

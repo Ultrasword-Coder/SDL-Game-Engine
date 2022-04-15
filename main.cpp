@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <SDL2/SDL.h>
 
 #if defined _WIN64
@@ -21,6 +19,7 @@ printerror("OS not supported? You using linux? yucky... no offense of course");
 #include "src/engine/filehandler.hpp"
 #include "src/engine/draw.hpp"
 #include "src/engine/physics.hpp"
+#include "src/engine/world.hpp"
 
 unsigned int WIDTH = 800, HEIGHT = 600;
 const char *TITLE = "Template";
@@ -118,8 +117,9 @@ int main(int argc, char *argv[])
 
     // turn running on to when errors occur, immediately exit
     Window::running = true;
+    SDL_Log("[MAIN] loaded window");
 
-    // ------ testing ------ //
+    // ------------------------------ testing ------------------------------------------------ //
 
     Graphics::Texture *tex = ImageHandler::load_image(Window::instance_renderer, "assets/unknown.png");
     Rect pos;
@@ -134,11 +134,26 @@ int main(int argc, char *argv[])
     white.b = 255;
     white.a = 255;
 
+    SDL_Log("[MAIN] loaded image");
+
     Graphics::Texture *sheet = ImageHandler::load_image(Window::instance_renderer, "assets/tilemap.png");
     Graphics::SpriteSheet spritesheet(sheet, 10 * 10, 16, 16, 0, 0);
     spritesheet.create();
 
-    // --------------------- //
+    // testing chunks
+    World::World world;
+    World::Chunk *chunk;
+    World::Tile tile;
+
+    chunk = world.make_template_chunk(0, 0);
+
+    // error
+    tile = world.create_tile(0, 0, "assets/unknown.png");
+
+    World::set_tile_at(chunk, &tile);
+
+    // --------------------------------------------------------------------------------------- //
+
     SDL_Event event;
     Clock::start();
     while (Window::running)
@@ -171,6 +186,9 @@ int main(int argc, char *argv[])
         // SDL_Log("%dms", Clock::delta_time);
 
         Draw::fill(&white);
+
+        // render world
+        world.render_chunks(0, 0);
 
         // test render
         for (int i = 0; i < (int)spritesheet.get_count(); i++)
